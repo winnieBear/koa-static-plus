@@ -6,17 +6,14 @@ const koa = require('koa');
 const app = koa();
 
 // $ GET /static/package.json
-// $ GET /static/
+// $ GET /static/foo.html
 
 app.use(serve('.', {
   pathPrefix: '/static'
 }));
 
-app.use(function *(next){
-  yield next;
-  if ('/' == this.path) {
-    this.body = 'Try `GET /static/package.json`';
-  }
+app.use(async function (ctx, next){
+    ctx.body = 'Hello World'
 })
 
 app.listen(3000);
